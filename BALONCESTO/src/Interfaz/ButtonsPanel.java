@@ -16,6 +16,11 @@ public class ButtonsPanel extends JPanel implements ActionListener{
 		this.search = new JButton("Buscar Jugador");
 		this.delete = new JButton("Eliminar Jugador");
 		this.modified = new JButton("Modificar Jugador");
+		
+		setLayout(new GridLayout(1,3));
+		add(search);
+		add(delete);
+		add(modified);
 	}
 
 	public JButton getSearch() {

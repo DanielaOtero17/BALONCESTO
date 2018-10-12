@@ -24,6 +24,7 @@ public class PrincipalWindow extends JFrame{
 		
 		setLayout(new BorderLayout());
 		add(pPlayer,BorderLayout.CENTER);
+		add(buttons,BorderLayout.NORTH);
 		
 		}
 	
