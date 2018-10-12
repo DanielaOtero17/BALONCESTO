@@ -6,12 +6,14 @@ import javax.swing.*;
 public class PrincipalWindow extends JFrame{
 
 	private PlayerPanel pPlayer;
+	private ButtonsPanel buttons;
 
 	private String data;
 
 	public PrincipalWindow() {
 		
 		pPlayer = new PlayerPanel(this);
+		buttons = new ButtonsPanel();
 		data = "Hola";
 
 		
@@ -23,8 +25,7 @@ public class PrincipalWindow extends JFrame{
 		setLayout(new BorderLayout());
 		add(pPlayer,BorderLayout.CENTER);
 		
-		
-	}
+		}
 	
 	
 	
