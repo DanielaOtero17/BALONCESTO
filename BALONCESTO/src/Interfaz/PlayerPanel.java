@@ -33,7 +33,6 @@ public class PlayerPanel extends JPanel {
 		setLayout(new BorderLayout());
 		add(l, BorderLayout.CENTER);
 		
-		
 	}
 	
 	
