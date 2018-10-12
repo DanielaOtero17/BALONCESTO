@@ -1,4 +1,4 @@
-package Modelo;
+package Model;
 
 public class Player {
 	
@@ -17,7 +17,7 @@ public class Player {
 		years=y;
 		team=t;
 		matchs=m;
-		matchpoints=p;
+		matchPoints=p;
 		matchRebounds=r;
 		matchAssistances=a;
 		matchTheft=h;
