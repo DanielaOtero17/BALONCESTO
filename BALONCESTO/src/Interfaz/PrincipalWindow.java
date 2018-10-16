@@ -24,6 +24,7 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 	private JLabel ro1;
 	private JLabel bl1;
 	private boolean found;
+	private int auxCounter;
 	
 	
 	public PrincipalWindow() {		
@@ -63,30 +64,34 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 	
 	public boolean searchPlayerList(){
 		
+		counter = 0;
+		
 		String name = pPlayer.getL().getSelectedItem();
 		while(found == false && counter < playerList.size()){
 			if(name.equalsIgnoreCase(playerList.get(counter).getName())){
 				found = true;}
 			
 			counter ++;}	
-		
-		
 		System.out.println(name);
-		
+		System.out.println(playerList.size());
 		return found;
-		
 	}
-	
+
+
 	public void modifiedPlayer(){
+		
+		System.out.println("El contador es: " + counter);
 		
 		this.setVisible(false);
 		auxiliary = new PrincipalWindow();
 		
-		
 		boolean founder = searchPlayerList();
-			
+
 		if(founder){
 		JLabel n1 = new JLabel("Nombre : ");
+		
+		
+		
 		n = new JLabel( playerList.get(counter-1).getName());
 		JLabel a = new JLabel("Edad : ");
 		a1 = new JLabel(playerList.get(counter-1).getYears() +"");
@@ -176,8 +181,10 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 
 		auxiliary.setVisible(true);
 		
-		}
 		
+		
+		}
+	
 	}
 	public void addPlayer(){
 		
@@ -216,11 +223,7 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 		
 		pPlayer.getL().setName(playerList.get(counter-1).getName());
 		
-		counter = 0;
-		
 		JOptionPane.showConfirmDialog(null, "Se han realizado los cambios");
-		auxiliary.setVisible(false);
-		this.setVisible(true);
 	}
 	
 	@Override
@@ -233,13 +236,14 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 			
 			this.setVisible(true);
 			auxiliary.setVisible(false);
-			counter = 0;
 			
 			break;
 		}
 		case "Edit":{
 			
 			editPlayer(n,a1,t1,as1,p1,r1,ro1,bl1);
+			this.setVisible(true);
+			auxiliary.setVisible(false);
 			
 			break;
 		}
@@ -249,11 +253,12 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 			
 		pPlayer.getL().remove(playerList.get(counter-1).getName());
 		playerList.get(counter-1).setName(nam);
+		System.out.println(playerList.get(counter-1).getName());
 		n.setText(nam);
+		pPlayer.getL().add(nam);	
 		
+		break;
 		
-		
-			
 		}
 		case "Edad":{
 			
