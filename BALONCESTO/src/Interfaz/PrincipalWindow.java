@@ -15,14 +15,15 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 	private ArrayList<Player> playerList;
 	private PrincipalWindow auxiliary;
 	private int counter;
-	private JTextField n;
-	private JTextField a1;
-	private JTextField t1;
-	private JTextField as1;
-	private JTextField p1;
-	private JTextField r1;
-	private JTextField ro1;
-	private JTextField bl1;
+	private JLabel n;
+	private JLabel a1;
+	private JLabel t1;
+	private JLabel as1;
+	private JLabel p1;
+	private JLabel r1;
+	private JLabel ro1;
+	private JLabel bl1;
+	private boolean found;
 	
 	
 	public PrincipalWindow() {		
@@ -30,6 +31,8 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 		buttons = new ButtonsPanel(this);
 		playerList = new ArrayList<>();
 		counter = 0;
+		auxiliary = null;
+		found = false;
 				
 		setSize(1000,700);
 		setResizable(false);
@@ -58,68 +61,120 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 		this.buttons = buttons;
 	}
 	
-	public void modifiedPlayer(){
+	public boolean searchPlayerList(){
+		
 		String name = pPlayer.getL().getSelectedItem();
+		while(found == false && counter < playerList.size()){
+			if(name.equalsIgnoreCase(playerList.get(counter).getName())){
+				found = true;}
+			
+			counter ++;}	
+		
+		
 		System.out.println(name);
-		boolean encontrado = false;
-			while(encontrado == false && counter < playerList.size()){
-				if(name.equalsIgnoreCase(playerList.get(counter).getName())){
-					encontrado = true;}
-				counter ++;}		
-		if(encontrado){
+		
+		return found;
+		
+	}
+	
+	public void modifiedPlayer(){
+		
+		this.setVisible(false);
+		auxiliary = new PrincipalWindow();
+		
+		
+		boolean founder = searchPlayerList();
+			
+		if(founder){
 		JLabel n1 = new JLabel("Nombre : ");
-		n = new JTextField( playerList.get(counter-1).getName());
+		n = new JLabel( playerList.get(counter-1).getName());
 		JLabel a = new JLabel("Edad : ");
-		a1 = new JTextField(playerList.get(counter-1).getYears() +"");
+		a1 = new JLabel(playerList.get(counter-1).getYears() +"");
 		JLabel t = new JLabel("Equipo : ");
-		t1 = new JTextField( playerList.get(counter-1).getTeam());
+		t1 = new JLabel( playerList.get(counter-1).getTeam());
 		JLabel as = new JLabel("Asistencias : ");
-		as1 = new JTextField(playerList.get(counter-1).getMatchAssistances() + "");
+		as1 = new JLabel(playerList.get(counter-1).getMatchAssistances() + "");
 		JLabel p = new JLabel("Puntos : ");
-		p1 = new JTextField(playerList.get(counter-1).getMatchPoints() + "");
+		p1 = new JLabel(playerList.get(counter-1).getMatchPoints() + "");
 		JLabel r = new JLabel("Rebotes : ");
-		r1 = new JTextField( playerList.get(counter-1).getMatchRebounds() + "");
+		r1 = new JLabel( playerList.get(counter-1).getMatchRebounds() + "");
 		JLabel ro= new JLabel("Robos : ");
-		 ro1 = new JTextField(playerList.get(counter-1).getMatchTheft() + "");
+		 ro1 = new JLabel(playerList.get(counter-1).getMatchTheft() + "");
 		JLabel bl= new JLabel("Bloqueos : ");
-		 bl1 = new JTextField( playerList.get(counter-1).getMatchBlocking() + "");
+		 bl1 = new JLabel( playerList.get(counter-1).getMatchBlocking() + "");
 		JButton exit = new JButton("Salir");
 		JButton edit = new JButton("Guardar Cambios");
+		JButton e1 = new JButton("Editar");
+		JButton e2 = new JButton("Editar");
+		JButton e3 = new JButton("Editar");
+		JButton e4 = new JButton("Editar");
+		JButton e5 = new JButton("Editar");
+		JButton e6 = new JButton("Editar");
+		JButton e7 = new JButton("Editar");
+		JButton e8 = new JButton("Editar");
+		
 		Panel aux = new Panel();
-		aux.setLayout(new GridLayout(10,2));
+		aux.setLayout(new GridLayout(8,3));
 		aux.add(n1);
 		aux.add(n);
+		aux.add(e1);
 		aux.add(a);
 		aux.add(a1);
+		aux.add(e2);
 		aux.add(t);
 		aux.add(t1);
+		aux.add(e3);
 		aux.add(as);
 		aux.add(as1);
+		aux.add(e4);
 		aux.add(p);
 		aux.add(p1);
+		aux.add(e5);
 		aux.add(r);
 		aux.add(r1);
+		aux.add(e6);
 		aux.add(ro);
 		aux.add(ro1);
+		aux.add(e7);
 		aux.add(bl);
 		aux.add(bl1);
-		aux.add(exit);
-		aux.add(edit);
+		aux.add(e8);
+		Panel la = new Panel();
+		la.setSize(10,20);
+		la.setLayout(new GridLayout(1,2));
+		la.add(exit);
+		la.add(edit);
 		
-		auxiliary = new PrincipalWindow();
 		auxiliary.setSize(500,500);
 		auxiliary.setLayout(new BorderLayout());
 		auxiliary.setTitle("Modificar Jugador");
 		
 		auxiliary.add(aux, BorderLayout.CENTER);
-		this.setVisible(false);
-		auxiliary.setVisible(true);
+		auxiliary.add(la, BorderLayout.SOUTH);
+		
 		
 		exit.setActionCommand("Exit");
 		exit.addActionListener(this);
 		edit.setActionCommand("Edit");
 		edit.addActionListener(this);
+		e1.setActionCommand("Nombre");
+		e1.addActionListener(this);
+		e2.setActionCommand("Edad");
+		e2.addActionListener(this);
+		e3.setActionCommand("Equipo");
+		e3.addActionListener(this);
+		e4.setActionCommand("Asistencias");
+		e4.addActionListener(this);
+		e5.setActionCommand("Puntos");
+		e5.addActionListener(this);
+		e6.setActionCommand("Rebotes");
+		e6.addActionListener(this);
+		e7.setActionCommand("Robos");
+		e7.addActionListener(this);
+		e8.setActionCommand("Bloqueos");
+		e8.addActionListener(this);
 
+		auxiliary.setVisible(true);
 		
 		}
 		
@@ -146,8 +201,8 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 		playerList.add(p);
 	}
 	
-	public void editPlayer(JTextField a, JTextField b, JTextField c,JTextField d,JTextField 
-			e,JTextField f,JTextField g,JTextField h){
+	public void editPlayer(JLabel a, JLabel b, JLabel c,JLabel d,JLabel 
+			e,JLabel f,JLabel g,JLabel h){
 		
 		
 		playerList.get(counter-1).setName(a.getText());
@@ -159,22 +214,71 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 		playerList.get(counter-1).setMatchTheft(Integer.parseInt(g.getText()));
 		playerList.get(counter-1).setMatchBlocking(Integer.parseInt(h.getText()));
 		
+		pPlayer.getL().setName(playerList.get(counter-1).getName());
+		
+		counter = 0;
+		
+		JOptionPane.showConfirmDialog(null, "Se han realizado los cambios");
+		auxiliary.setVisible(false);
+		this.setVisible(true);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 	String l = e.getActionCommand();
 	
-	if(l.equals("Exit")){
+	switch(l){
 		
-		this.setVisible(true);
-		auxiliary.setVisible(false);
+		case "Exit":{
+			
+			this.setVisible(true);
+			auxiliary.setVisible(false);
+			counter = 0;
+			
+			break;
+		}
+		case "Edit":{
+			
+			editPlayer(n,a1,t1,as1,p1,r1,ro1,bl1);
+			
+			break;
+		}
+		case "Nombre":{
+			
+			String nam = JOptionPane.showInputDialog("Por favor ingrese el nuevo nombre");
+			
+		pPlayer.getL().remove(playerList.get(counter-1).getName());
+		playerList.get(counter-1).setName(nam);
+		n.setText(nam);
 		
-	}else if(l.equals("Edit")){
 		
-		editPlayer(n,a1,t1,as1,p1,r1,ro1,bl1);
+		
+			
+		}
+		case "Edad":{
+			
+		}
+		case "Equipo":{
+			
+		}
+		case "Asistencias":{
+			
+		}
+		case "Puntos":{
+			
+		}
+		case "Rebotes":{
+			
+		}
+		case "Robos":{
+			
+		}
+		case "Bloqueos":{
+			
+		}
 	
 	}
+
 		
 	}
 
