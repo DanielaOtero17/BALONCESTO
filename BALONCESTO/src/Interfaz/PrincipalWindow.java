@@ -64,23 +64,26 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 	
 	public boolean searchPlayerList(){
 		
-		counter = 0;
-		
 		String name = pPlayer.getL().getSelectedItem();
 		while(found == false && counter < playerList.size()){
 			if(name.equalsIgnoreCase(playerList.get(counter).getName())){
-				found = true;}
+				found = true;
+				}
 			
-			counter ++;}	
+			counter +=1;
+			}
+		
+		System.out.println(found);
 		System.out.println(name);
-		System.out.println(playerList.size());
+		System.out.println("El tamaño del arrayListes: " + playerList.size());
+		System.out.println("Search El contador es: " + counter);
 		return found;
 	}
 
 
 	public void modifiedPlayer(){
 		
-		System.out.println("El contador es: " + counter);
+		System.out.println("Modified El contador es: " + counter);
 		
 		this.setVisible(false);
 		auxiliary = new PrincipalWindow();
@@ -89,8 +92,6 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 
 		if(founder){
 		JLabel n1 = new JLabel("Nombre : ");
-		
-		
 		
 		n = new JLabel( playerList.get(counter-1).getName());
 		JLabel a = new JLabel("Edad : ");
@@ -183,6 +184,9 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 		
 		
 		
+		}else{
+			
+			System.out.println("Error");
 		}
 	
 	}
@@ -235,8 +239,7 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 		case "Exit":{
 			
 			this.setVisible(true);
-			auxiliary.setVisible(false);
-			
+			auxiliary.setVisible(false);			
 			break;
 		}
 		case "Edit":{
