@@ -143,13 +143,13 @@ public class Programm_NBA implements IFiba<Player>{
 		}
 		else if(criterio.equalsIgnoreCase("Asistencias")){
 			
-			int a =(int) dato.doubleValue();
-			
 			if (raiz == null) {
 				asis.add(null);
 			} else {
-				asis.add(buscarP(a,raiz));
+				System.out.println(buscarA(criterio,raiz));
+				asis.add(buscarA(criterio,raiz));
 				setParticipantes(asis);
+				
 			}
 		}
 
@@ -188,10 +188,19 @@ public class Programm_NBA implements IFiba<Player>{
 		}
 	}
 	
-	public ArrayList<Player> buscarA(double da ,Player r){
-		ArrayList<Player> asis = new ArrayList<Player>();
-		
-		return asis;
+	public Player buscarA(String da,Player r){
+		if(raiz==null){
+			return null;
+		}
+		else if(r.compareTo(raiz)==0){
+			return r;
+		}
+		else if(r.compareTo(raiz)>0){
+			return buscarA(da,r.getHijoIzq());
+		}
+		else{
+			return buscarA(da,r.getHijoDer());
+		}
 	}
 	
 
@@ -206,10 +215,10 @@ public class Programm_NBA implements IFiba<Player>{
 			asis.add(r);
 		
 			if(r.getMatchRebounds()>da){
-				buscarA(da,r.getHijoIzq());
+				buscarR(da,r.getHijoIzq());
 			}
 			else{
-				buscarA(da,r.getHijoDer());
+				buscarR(da,r.getHijoDer());
 			}
 		}
 		return asis;
@@ -227,10 +236,10 @@ public class Programm_NBA implements IFiba<Player>{
 			asis.add(r);
 		
 			if(r.getMatchPercent()>da){
-				buscarA(da,r.getHijoIzq());
+				buscarPo(da,r.getHijoIzq());
 			}
 			else{
-				buscarA(da,r.getHijoDer());
+				buscarPo(da,r.getHijoDer());
 			}
 		}
 		return asis;

@@ -191,8 +191,14 @@ public class InterfazMain extends JFrame {
 		 }
 		 else{
 			try{
-			pro.search(combo.getSelectedItem().toString(), Double.parseDouble(dato.getText()));
-			l.updateList(pro.getParticipantes());
+				if(combo.getSelectedItem().toString()!="Asistencias"){
+					pro.search(combo.getSelectedItem().toString(), Double.parseDouble(dato.getText()));
+					l.updateList(pro.getParticipantes());
+				}
+				else{
+					pro.search(dato.getText(), Double.parseDouble(dato.getText()));
+					l.updateList(pro.getParticipantes());
+				}
 			}
 			catch(Exception e){
 				JOptionPane.showMessageDialog(null, "Datos no encontrados", "Mensaje", JOptionPane.WARNING_MESSAGE);

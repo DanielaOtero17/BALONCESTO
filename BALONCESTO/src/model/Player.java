@@ -168,10 +168,10 @@ public class Player implements Comparable<Player> {
 
 	@Override
 	public int compareTo(Player o) {
-		if(o.getMatchAssistances()==matchPoints){
+		if(o.getName().compareTo(o.getName())==0){
 			return 0;
 		}
-		else if(o.getMatchAssistances()< matchPoints){
+		else if(o.getName().compareTo(o.getName())>0){
 			return 1;
 		}
 		else{
