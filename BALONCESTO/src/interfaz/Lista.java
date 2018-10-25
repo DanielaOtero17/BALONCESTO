@@ -45,24 +45,24 @@ public class Lista extends JPanel implements ListSelectionListener {
         add( panelLista, BorderLayout.CENTER );
 	}
 	
-	public void actualizarLista( ArrayList<Player> listaActualizada )
+	public void updateList( ArrayList<Player> listUpdated )
 	   {
-		listaPlayers.setListData( listaActualizada.toArray() );
+		listaPlayers.setListData( listUpdated.toArray() );
 		listaPlayers.setSelectedIndex( 0 );
 	       
 
 	   }
-	public void seleccionar( int seleccionado )
+	public void selection( int seleccionado )
 	   {
 		listaPlayers.setSelectedIndex( seleccionado );
 		listaPlayers.ensureIndexIsVisible( seleccionado );
 	   }
 	
-	public boolean haySeleccionado( ){
+	public boolean isSelectioned( ){
 	       return !listaPlayers.isSelectionEmpty( );
 	}
 	
-	public Player darSeleccionado( )
+	public Player getSelection( )
 	   {
 		Player vSeleccionado = null;
 

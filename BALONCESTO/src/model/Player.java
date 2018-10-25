@@ -64,81 +64,6 @@ public class Player implements Comparable<Player> {
 		return izq==null && der==null;
 	}
 	
-	public Player searchPoints(double p){
-		if(p==matchPoints){
-			return this;
-		}
-		else if(p>matchPoints){
-			if(der==null){
-				return null;
-			}else{
-				return der.searchPoints(p);
-			}
-		}
-		else{
-			if(izq==null)
-				return null;
-			else
-			return izq.searchPoints(p);
-		}
-	}
-	
-	public Player searchRebounds(int r){
-		if(r==matchRebounds){
-			return this;
-		}
-		else if(r>matchRebounds){
-			if(der==null){
-				return null;
-			}else{
-				return der.searchRebounds(r);
-			}
-		}
-		else{
-			if(izq==null)
-				return null;
-			else
-			return izq.searchRebounds(r);
-		}
-	}
-	
-	public Player searchAssistents(int a){
-		if(a==matchAssistances){
-			return this;
-		}
-		else if(a>matchAssistances){
-			if(der==null){
-				return null;
-			}else{
-				return der.searchAssistents(a);
-			}
-		}
-		else{
-			if(izq==null)
-				return null;
-			else
-			return izq.searchAssistents(a);
-		}
-	}
-	
-	public Player searchPercent(double po){
-		if(po==matchPercent){
-			return this;
-		}
-		else if(po>matchPercent){
-			if(der==null){
-				return null;
-			}else{
-				return der.searchPercent(po);
-			}
-		}
-		else{
-			if(izq==null)
-				return null;
-			else
-			return izq.searchPercent(po);
-		}
-	}
 	
 	public Player getMenor(){	
 		if(izq==null){
@@ -243,10 +168,10 @@ public class Player implements Comparable<Player> {
 
 	@Override
 	public int compareTo(Player o) {
-		if(o.getMatchPoints()==matchPoints){
+		if(o.getMatchAssistances()==matchPoints){
 			return 0;
 		}
-		else if(o.getMatchPoints()< matchPoints){
+		else if(o.getMatchAssistances()< matchPoints){
 			return 1;
 		}
 		else{

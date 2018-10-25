@@ -129,13 +129,16 @@ public class Programm_NBA implements IFiba<Player>{
 	}
 
 	@Override
-	public Player search(String criterio,Double dato) {
+	public void search(String criterio,Double dato) {
+		
+		ArrayList<Player> asis = new ArrayList<Player>();
 	
 		if(criterio.equalsIgnoreCase("Puntos")){
 			if (raiz == null) {
-				return null;
+				asis.add(null);
 			} else {
-				return raiz.searchPoints(dato);
+				asis.add(buscarP(dato,raiz));
+				setParticipantes(asis);
 			}
 		}
 		else if(criterio.equalsIgnoreCase("Asistencias")){
@@ -143,9 +146,10 @@ public class Programm_NBA implements IFiba<Player>{
 			int a =(int) dato.doubleValue();
 			
 			if (raiz == null) {
-				return null;
+				asis.add(null);
 			} else {
-				return raiz.searchAssistents(a);
+				asis.add(buscarP(a,raiz));
+				setParticipantes(asis);
 			}
 		}
 
@@ -153,36 +157,83 @@ public class Programm_NBA implements IFiba<Player>{
 			int b =(int) dato.doubleValue();
 			
 			if (raiz == null) {
-				return null;
+				asis.add(null);
 			} else {
-				return raiz.searchRebounds(b);
+				setParticipantes(buscarR(b, raiz));
 			}
 		}
 
 		else if(criterio.equalsIgnoreCase("Porcentaje")){
 	
 			if (raiz == null) {
-				return null;
+				asis.add(null);
 			} else {
-				return raiz.searchPercent(dato);
+				setParticipantes(buscarPo(dato, raiz));
 			}
 		}
-		return null;
 	}
 	
-	public Player buscar(double da ,Player r){
+	public Player buscarP(double da ,Player r){
 		if(raiz==null){
 			return null;
 		}
 		else if(r.getMatchPoints()==da){
 			return r;
 		}
-		else if(r.getMatchPoints()<da){
-			return buscar(da,r.getHijoIzq());
+		else if(r.getMatchPoints()>da){
+			return buscarP(da,r.getHijoIzq());
 		}
 		else{
-			return buscar(da,r.getHijoDer());
+			return buscarP(da,r.getHijoDer());
 		}
+	}
+	
+	public ArrayList<Player> buscarA(double da ,Player r){
+		ArrayList<Player> asis = new ArrayList<Player>();
+		
+		return asis;
+	}
+	
+
+	public ArrayList<Player> buscarR(double da ,Player r){
+		
+		ArrayList<Player> asis = new ArrayList<Player>();
+		
+		if(raiz==null){
+			return null;
+		}
+		while(r.getMatchRebounds()==da){
+			asis.add(r);
+		
+			if(r.getMatchRebounds()>da){
+				buscarA(da,r.getHijoIzq());
+			}
+			else{
+				buscarA(da,r.getHijoDer());
+			}
+		}
+		return asis;
+	}
+	
+
+	public ArrayList<Player> buscarPo(double da ,Player r){
+		
+		ArrayList<Player> asis = new ArrayList<Player>();
+		
+		if(raiz==null){
+			return null;
+		}
+		while(r.getMatchPercent()==da){
+			asis.add(r);
+		
+			if(r.getMatchPercent()>da){
+				buscarA(da,r.getHijoIzq());
+			}
+			else{
+				buscarA(da,r.getHijoDer());
+			}
+		}
+		return asis;
 	}
 	
 	@Override
@@ -303,5 +354,13 @@ public class Programm_NBA implements IFiba<Player>{
 	
 	public int getCantidad(){
 		return contador;
+	}
+	
+	public void deleteParticipante(Player n){
+		for (int i =0;i<participantes.size();i++){
+			if(participantes.get(i).getMatchPoints()==n.getMatchPoints()){
+				participantes.remove(i);
+			}
+		}
 	}
 }

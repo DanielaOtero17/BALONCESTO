@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -75,7 +76,7 @@ public class InterfazMain extends JFrame {
 			if (archivo != null) {
 				File file = new File("data/" + archivo.getName());
 				pro.cargar(file);
-				l.actualizarLista(pro.getParticipantes());
+				l.updateList(pro.getParticipantes());
 			}
 		}
 	}
@@ -85,7 +86,10 @@ public class InterfazMain extends JFrame {
 	}
 	
 	public void EliminarPlayer(){
-		
+		Player p = l.getSelection();
+		pro.delete(p.getMatchPoints());
+		pro.deleteParticipante(p);
+		l.updateList(pro.getParticipantes());
 	}
 	
 	public void AgregarPlayer(){
@@ -155,7 +159,7 @@ public class InterfazMain extends JFrame {
 	    	Player nuevo = new Player(name,years,team,points,rebouns,assistents,theft,block,percent);
 	    	pro.insert(nuevo);
 	    	
-	    	l.actualizarLista(pro.getParticipantes());
+	    	l.updateList(pro.getParticipantes());
 			JOptionPane.showMessageDialog(null, "El Jugador se agrego correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);	
 	    }
 	    catch( Exception e ){
@@ -176,7 +180,6 @@ public class InterfazMain extends JFrame {
 		 aux.add(combo,BorderLayout.CENTER);
 		 aux.add(dato,BorderLayout.SOUTH);
 		 
-		 System.out.println(combo.getSelectedItem().toString());
 		
 		 JFrame frame = new JFrame("Search Players");
 		 int respuesta=JOptionPane.showConfirmDialog(frame, aux,JOptionPane.ICON_PROPERTY,JOptionPane.OK_CANCEL_OPTION);
@@ -187,14 +190,18 @@ public class InterfazMain extends JFrame {
 		    	
 		 }
 		 else{
-			 pro.search(combo.getSelectedItem().toString(), Double.parseDouble(dato.getText()));
+			try{
+			pro.search(combo.getSelectedItem().toString(), Double.parseDouble(dato.getText()));
+			l.updateList(pro.getParticipantes());
+			}
+			catch(Exception e){
+				JOptionPane.showMessageDialog(null, "Datos no encontrados", "Mensaje", JOptionPane.WARNING_MESSAGE);
+			}
 		 }
-		 
-		 System.out.println();
 	}
 	
 	public void guardar(){
-		Player p = l.darSeleccionado();
+		Player p = l.getSelection();
 		
 		p.setMatchAssistances(d.getAsistencias());
 		p.setTeam(d.getEquipo());
