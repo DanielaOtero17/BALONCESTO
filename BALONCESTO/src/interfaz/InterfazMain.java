@@ -153,7 +153,7 @@ public class InterfazMain extends JFrame {
 	    	double percent = Double.parseDouble(porcentaje.getText());
 	    	
 	    	Player nuevo = new Player(name,years,team,points,rebouns,assistents,theft,block,percent);
-	    	pro.insertar(nuevo);
+	    	pro.insert(nuevo);
 	    	
 	    	l.actualizarLista(pro.getParticipantes());
 			JOptionPane.showMessageDialog(null, "El Jugador se agrego correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);	

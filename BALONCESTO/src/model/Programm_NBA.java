@@ -41,7 +41,7 @@ public class Programm_NBA implements IFiba<Player>{
 			double po = Double.parseDouble(datos[8]);
 			
 			Player nuevo = new Player(n, y, t, p, r, a, h, b, po); 
-			insertar(nuevo);
+			insert(nuevo);
 			
 			linea = lector.readLine();
 			if (linea == "") {
@@ -52,7 +52,7 @@ public class Programm_NBA implements IFiba<Player>{
 	}
 	
 	@Override
-	public void insertar(Player nuevo){
+	public void insert(Player nuevo){
 		Player j = nuevo;
 		contador++;
 		participantes.add(j);
@@ -60,24 +60,24 @@ public class Programm_NBA implements IFiba<Player>{
 			raiz=j;
 		}
 		else{
-			raiz=insertarAVL(j,raiz);
+			raiz=insertAVL(j,raiz);
 		}
 	}
 	
-	public Player insertarAVL(Player n, Player subAr){
+	public Player insertAVL(Player n, Player subAr){
 		Player aux = subAr;
 		if(n.getMatchPoints()<subAr.getMatchPoints()){
 			if(subAr.getHijoIzq()==null){
 				subAr.setIzq(n);
 			}
 			else{
-				subAr.setIzq(insertarAVL(n,subAr.getHijoIzq()));
-				if(ObtenerBalance(subAr.getHijoIzq())-ObtenerBalance(subAr.getHijoDer())==2){
+				subAr.setIzq(insertAVL(n,subAr.getHijoIzq()));
+				if(getBalance(subAr.getHijoIzq())-getBalance(subAr.getHijoDer())==2){
 					if(n.getMatchPoints()<subAr.getHijoIzq().getMatchPoints()){
-						aux=rotacionIzq(subAr);
+						aux=rotationIzq(subAr);
 					}
 					else{
-						aux=RotacionDobleIzq(subAr);
+						aux=rotationDobleIzq(subAr);
 					}
 				}
 			}
@@ -87,13 +87,13 @@ public class Programm_NBA implements IFiba<Player>{
 				subAr.setDer(n);
 			}
 			else{
-				subAr.setDer(insertarAVL(n,subAr.getHijoDer()));
-				if(ObtenerBalance(subAr.getHijoDer())-ObtenerBalance(subAr.getHijoIzq())==2){
+				subAr.setDer(insertAVL(n,subAr.getHijoDer()));
+				if(getBalance(subAr.getHijoDer())-getBalance(subAr.getHijoIzq())==2){
 					if(n.getMatchPoints()> subAr.getHijoDer().getMatchPoints()){
-						aux=rotacionDer(subAr);
+						aux=rotationDer(subAr);
 					}
 					else{
-						aux=RotacionDobleDer(subAr);
+						aux=rotationDobleDer(subAr);
 					}
 				}
 			}
@@ -109,7 +109,7 @@ public class Programm_NBA implements IFiba<Player>{
 			subAr.balance = subAr.getHijoIzq().balance+1;
 		}
 		else{
-			subAr.balance=Math.max(ObtenerBalance(subAr.getHijoIzq()), ObtenerBalance(subAr.getHijoDer())+1);
+			subAr.balance=Math.max(getBalance(subAr.getHijoIzq()), getBalance(subAr.getHijoDer())+1);
 		}
 		
 		return aux;
@@ -135,7 +135,7 @@ public class Programm_NBA implements IFiba<Player>{
 			if (raiz == null) {
 				return null;
 			} else {
-				return raiz.buscarPuntos(dato);
+				return raiz.searchPoints(dato);
 			}
 		}
 		else if(criterio.equalsIgnoreCase("Asistencias")){
@@ -145,7 +145,7 @@ public class Programm_NBA implements IFiba<Player>{
 			if (raiz == null) {
 				return null;
 			} else {
-				return raiz.buscarAsistencias(a);
+				return raiz.searchAssistents(a);
 			}
 		}
 
@@ -155,7 +155,7 @@ public class Programm_NBA implements IFiba<Player>{
 			if (raiz == null) {
 				return null;
 			} else {
-				return raiz.buscarRebotes(b);
+				return raiz.searchRebounds(b);
 			}
 		}
 
@@ -164,7 +164,7 @@ public class Programm_NBA implements IFiba<Player>{
 			if (raiz == null) {
 				return null;
 			} else {
-				return raiz.buscarPorcentaje(dato);
+				return raiz.searchPercent(dato);
 			}
 		}
 		return null;
@@ -186,7 +186,7 @@ public class Programm_NBA implements IFiba<Player>{
 	}
 	
 	@Override
-	public int ObtenerBalance(Player x){
+	public int getBalance(Player x){
 		if(x==null){
 			return -1;
 		}
@@ -196,50 +196,84 @@ public class Programm_NBA implements IFiba<Player>{
 	}
 	
 	@Override
-	public Player rotacionIzq(Player c){
+	public Player rotationIzq(Player c){
 		
 		Player aux =c.getHijoIzq();
 		c.setIzq(aux.getHijoDer());
 		aux.setDer(c);
-		c.balance=Math.max(ObtenerBalance(c.getHijoIzq()), ObtenerBalance(c.getHijoDer()))+1;
-		aux.balance=Math.max(ObtenerBalance(aux.getHijoIzq()), ObtenerBalance(aux.getHijoDer()))+1;
+		c.balance=Math.max(getBalance(c.getHijoIzq()), getBalance(c.getHijoDer()))+1;
+		aux.balance=Math.max(getBalance(aux.getHijoIzq()), getBalance(aux.getHijoDer()))+1;
 		return aux;
 	}
 	
 
 	@Override
-	public Player rotacionDer(Player c){
+	public Player rotationDer(Player c){
 		
 		Player aux =c.getHijoDer();
 		c.setDer(aux.getHijoIzq());
 		aux.setIzq(c);
-		c.balance=Math.max(ObtenerBalance(c.getHijoIzq()), ObtenerBalance(c.getHijoDer()))+1;
-		aux.balance=Math.max(ObtenerBalance(aux.getHijoIzq()), ObtenerBalance(aux.getHijoDer()))+1;
+		c.balance=Math.max(getBalance(c.getHijoIzq()), getBalance(c.getHijoDer()))+1;
+		aux.balance=Math.max(getBalance(aux.getHijoIzq()), getBalance(aux.getHijoDer()))+1;
 		return aux;
 	}
 	
 	@Override
-	public Player RotacionDobleIzq(Player c){
+	public Player rotationDobleIzq(Player c){
 		
 		Player aux ;
-		c.setIzq(rotacionDer(c.getHijoIzq()));
-		aux = rotacionIzq(c);
+		c.setIzq(rotationDer(c.getHijoIzq()));
+		aux = rotationIzq(c);
 		return aux;
 	}
 
 
 	@Override
-	public Player RotacionDobleDer(Player c){
+	public Player rotationDobleDer(Player c){
 		
 		Player aux = c.getHijoDer();
-		c.setDer(rotacionIzq(c.getHijoDer()));
-		aux = rotacionDer(c);
+		c.setDer(rotationIzq(c.getHijoDer()));
+		aux = rotationDer(c);
 		return aux;
 	}
-
+	
 	@Override
-	public void Eliminar(Player Object) {
-		
+	public void delete (double v){
+		raiz = deleteAux(v, raiz);
+	}
+
+	
+	public Player deleteAux(double da,Player p) {
+		if(p==null){
+			return null;
+		}
+		else{
+			if(p.getMatchPoints()<da){
+				p.setDer(deleteAux(da,p.getHijoDer()));	
+			}
+			else if(p.getMatchPoints()>da){
+				p.setIzq(deleteAux(da,p.getHijoIzq()));
+			}
+			else if(p.getHijoIzq()==null){
+				p=p.getHijoDer();
+			}
+			else if(p.getHijoDer()==null){
+				p  = p.getHijoIzq();
+			}
+			else if(getBalance(p.getHijoIzq())>getBalance(p.getHijoDer())){
+				p = rotationDer(p);
+				p.setIzq(deleteAux(da,p.getHijoIzq()));
+			}
+			else{
+				p = rotationIzq(p);
+				p.setDer(deleteAux(da,p.getHijoDer()));
+			}
+			
+			if(p != null){
+				p.balance=getBalance(p.getHijoIzq())+ getBalance(p.getHijoDer());
+			}
+		}
+		return p;
 	}
 	
 	public void inOrden(Player r){

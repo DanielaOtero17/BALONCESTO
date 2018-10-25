@@ -20,11 +20,11 @@ public class ArbolAVLtest extends TestCase{
 		 Player p4 = new Player("Santiago",28,"NOB",4,34,54,65,34,30);
 		 Player p5 = new Player("Juan",22,"NOB",5,34,54,65,34,30);
 		 
-		 pro.insertar(p1);
-		 pro.insertar(p2);
-		 pro.insertar(p3);
-		 pro.insertar(p4);
-		 pro.insertar(p5);
+		 pro.insert(p1);
+		 pro.insert(p2);
+		 pro.insert(p3);
+		 pro.insert(p4);
+		 pro.insert(p5);
 		 
 		 assertEquals(5,pro.getCantidad());
 		 

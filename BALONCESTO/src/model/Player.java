@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Comparator;
-
 public class Player implements Comparable<Player> {
 	
 	public static final int BIZQ =1;
@@ -66,7 +64,7 @@ public class Player implements Comparable<Player> {
 		return izq==null && der==null;
 	}
 	
-	public Player buscarPuntos(double p){
+	public Player searchPoints(double p){
 		if(p==matchPoints){
 			return this;
 		}
@@ -74,18 +72,18 @@ public class Player implements Comparable<Player> {
 			if(der==null){
 				return null;
 			}else{
-				return der.buscarPuntos(p);
+				return der.searchPoints(p);
 			}
 		}
 		else{
 			if(izq==null)
 				return null;
 			else
-			return izq.buscarPuntos(p);
+			return izq.searchPoints(p);
 		}
 	}
 	
-	public Player buscarRebotes(int r){
+	public Player searchRebounds(int r){
 		if(r==matchRebounds){
 			return this;
 		}
@@ -93,18 +91,18 @@ public class Player implements Comparable<Player> {
 			if(der==null){
 				return null;
 			}else{
-				return der.buscarRebotes(r);
+				return der.searchRebounds(r);
 			}
 		}
 		else{
 			if(izq==null)
 				return null;
 			else
-			return izq.buscarRebotes(r);
+			return izq.searchRebounds(r);
 		}
 	}
 	
-	public Player buscarAsistencias(int a){
+	public Player searchAssistents(int a){
 		if(a==matchAssistances){
 			return this;
 		}
@@ -112,18 +110,18 @@ public class Player implements Comparable<Player> {
 			if(der==null){
 				return null;
 			}else{
-				return der.buscarAsistencias(a);
+				return der.searchAssistents(a);
 			}
 		}
 		else{
 			if(izq==null)
 				return null;
 			else
-			return izq.buscarAsistencias(a);
+			return izq.searchAssistents(a);
 		}
 	}
 	
-	public Player buscarPorcentaje(double po){
+	public Player searchPercent(double po){
 		if(po==matchPercent){
 			return this;
 		}
@@ -131,30 +129,30 @@ public class Player implements Comparable<Player> {
 			if(der==null){
 				return null;
 			}else{
-				return der.buscarPorcentaje(po);
+				return der.searchPercent(po);
 			}
 		}
 		else{
 			if(izq==null)
 				return null;
 			else
-			return izq.buscarPorcentaje(po);
+			return izq.searchPercent(po);
 		}
 	}
 	
-	public Player darMenor(){	
+	public Player getMenor(){	
 		if(izq==null){
 			return izq;
 		}else{
-			return izq.darMenor();
+			return izq.getMenor();
 		}
 	}
 	
-	public Player darMayor(){	
+	public Player getMayor(){	
 		if(der==null){
 			return der;
 		}else{
-			return der.darMayor();
+			return der.getMayor();
 		}
 	}
 	
@@ -236,9 +234,9 @@ public class Player implements Comparable<Player> {
 		return name;
 	}
 	
-	public int darAltura(){
-		int a1 =(izq==null)? 0 :izq.darAltura();
-		int a2 =(der==null)? 0 :der.darAltura();
+	public int getAltura(){
+		int a1 =(izq==null)? 0 :izq.getAltura();
+		int a2 =(der==null)? 0 :der.getAltura();
 		
 		return (a1>=a2) ? a1+1 : a2+1;
 	}
