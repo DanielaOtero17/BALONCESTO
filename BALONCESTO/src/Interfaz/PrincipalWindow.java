@@ -24,7 +24,7 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 	private JLabel ro1;
 	private JLabel bl1;
 	private boolean found;
-	private int auxCounter;
+	private boolean newPlayer;
 	
 	
 	public PrincipalWindow() {		
@@ -34,6 +34,7 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 		counter = 0;
 		auxiliary = null;
 		found = false;
+		newPlayer = false;
 				
 		setSize(1000,700);
 		setResizable(false);
@@ -65,12 +66,15 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 	public boolean searchPlayerList(){
 		
 		String name = pPlayer.getL().getSelectedItem();
-		while(found == false && counter < playerList.size()){
-			if(name.equalsIgnoreCase(playerList.get(counter).getName())){
-				found = true;
-				}
 			
-			counter +=1;
+			for(int i=0; i<playerList.size() && !found; i++){
+				
+				if(name.equalsIgnoreCase(playerList.get(i).getName())){
+					
+					found = true;
+				}
+				
+				counter = i;
 			}
 		
 		System.out.println(found);
@@ -91,23 +95,35 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 		boolean founder = searchPlayerList();
 
 		if(founder){
-		JLabel n1 = new JLabel("Nombre : ");
 		
-		n = new JLabel( playerList.get(counter-1).getName());
+		
+		int k = 0;
+		
+		for(int i =0; i< playerList.size(); i++){
+			
+			if( playerList.get(i).getName().equalsIgnoreCase(pPlayer.getL().getSelectedItem())){
+				
+				k=i;
+			}
+		}
+		
+		JLabel n1 = new JLabel("Nombre : ");
+		n = new JLabel( playerList.get(k).getName());
 		JLabel a = new JLabel("Edad : ");
-		a1 = new JLabel(playerList.get(counter-1).getYears() +"");
+		a1 = new JLabel(playerList.get(k).getYears() +"");
 		JLabel t = new JLabel("Equipo : ");
-		t1 = new JLabel( playerList.get(counter-1).getTeam());
+		t1 = new JLabel( playerList.get(k).getTeam());
 		JLabel as = new JLabel("Asistencias : ");
-		as1 = new JLabel(playerList.get(counter-1).getMatchAssistances() + "");
+		as1 = new JLabel(playerList.get(k).getMatchAssistances() + "");
 		JLabel p = new JLabel("Puntos : ");
-		p1 = new JLabel(playerList.get(counter-1).getMatchPoints() + "");
+		p1 = new JLabel(playerList.get(k).getMatchPoints() + "");
 		JLabel r = new JLabel("Rebotes : ");
-		r1 = new JLabel( playerList.get(counter-1).getMatchRebounds() + "");
+		r1 = new JLabel( playerList.get(k).getMatchRebounds() + "");
 		JLabel ro= new JLabel("Robos : ");
-		 ro1 = new JLabel(playerList.get(counter-1).getMatchTheft() + "");
+		 ro1 = new JLabel(playerList.get(k).getMatchTheft() + "");
 		JLabel bl= new JLabel("Bloqueos : ");
-		 bl1 = new JLabel( playerList.get(counter-1).getMatchBlocking() + "");
+		 bl1 = new JLabel(playerList.get(k).getMatchBlocking() + "");
+		
 		JButton exit = new JButton("Salir");
 		JButton edit = new JButton("Guardar Cambios");
 		JButton e1 = new JButton("Editar");
@@ -210,6 +226,11 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 		Player p = new Player(name,age,team,points,backs,assist,tief,block);
 		pPlayer.addNewElementList(p);
 		playerList.add(p);
+		newPlayer = true;
+	}
+	
+	public boolean getNew(){
+		return newPlayer;
 	}
 	
 	public void editPlayer(JLabel a, JLabel b, JLabel c,JLabel d,JLabel 
@@ -230,9 +251,24 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 		JOptionPane.showConfirmDialog(null, "Se han realizado los cambios");
 	}
 	
+
+	
+	public void searchPlayer(String n){
+		
+		
+		String m = JOptionPane.showInputDialog("Por favor ingrese el nombre completo del jugador a buscar");
+		
+		
+		
+			
+		
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 	String l = e.getActionCommand();
+	
+	int c = 0;
 	
 	switch(l){
 		
@@ -252,19 +288,35 @@ public class PrincipalWindow extends JFrame implements ActionListener{
 		}
 		case "Nombre":{
 			
+			int x = 0;
 			String nam = JOptionPane.showInputDialog("Por favor ingrese el nuevo nombre");
-			
-		pPlayer.getL().remove(playerList.get(counter-1).getName());
-		playerList.get(counter-1).setName(nam);
-		System.out.println(playerList.get(counter-1).getName());
+			String name = pPlayer.getL().getSelectedItem();
+			for(int i =0; i< playerList.size(); i++){
+				
+				if(name.equalsIgnoreCase(playerList.get(i).getName())){
+					
+					pPlayer.getL().remove(name);
+					x= i;
+				}
+					}
+		
+		playerList.get(x).setName(nam);
+		System.out.println(playerList.get(x).getName());
 		n.setText(nam);
 		pPlayer.getL().add(nam);	
 		
 		break;
-		
 		}
 		case "Edad":{
 			
+			String nam = JOptionPane.showInputDialog("Por favor ingrese la nueva edad");
+			int la = Integer.parseInt(nam);
+		
+		playerList.get(counter).setYears(la);
+		a1.setText(nam);
+		System.out.println(playerList.get(counter).getYears());
+		
+		break;
 		}
 		case "Equipo":{
 			
