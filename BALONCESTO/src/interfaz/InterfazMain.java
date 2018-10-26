@@ -77,6 +77,7 @@ public class InterfazMain extends JFrame {
 				File file = new File("data/" + archivo.getName());
 				pro.cargar(file);
 				l.updateList(pro.getParticipantes());
+				DatesRecorido();
 			}
 		}
 	}
@@ -222,6 +223,18 @@ public class InterfazMain extends JFrame {
 	
 	public void editar(){
 		d.habilitar();
+	}
+	
+	public void DatesRecorido(){
+			
+		System.out.println("InOrden ------------------------");
+	    pro.inOrden(pro.getRaiz());
+	    System.out.println("\n");
+		System.out.println("PosOrden -----------------------");
+		pro.posOrden(pro.getRaiz());
+		 System.out.println("\n");
+		System.out.println("PreOrden------------------------");
+		pro.preOrden(pro.getRaiz());
 	}
 	
 }

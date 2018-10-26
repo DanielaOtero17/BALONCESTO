@@ -99,7 +99,7 @@ public class Programm_NBA implements IFiba<Player>{
 			}
 		}
 		else{
-			System.out.println("Nodo Duplicado" + n.getName());
+			System.out.println("Nodo Duplicado" + " ----->  "+ n.getName());
 			
 		}
 		

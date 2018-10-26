@@ -1,6 +1,11 @@
 package test;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.junit.Test;
+
+
 
 
 import static org.junit.Assert.*;
@@ -70,5 +75,6 @@ public class ArbolAVLtest{
 		 pro.delete(p4.getMatchPoints());
 		 
 		 assertEquals(3,pro.getCantidad());
+		 
 	}
 }
